@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "vixun.fullname" . }}-mongodb
+spec:
+  replicas: 2
+  serviceName: {{ include "vixun.fullname" . }}-mongodb
+  selector:
+    matchLabels:
+      app: {{ include "vixun.fullname" . }}-mongodb
+  template:
+    metadata:
+      labels:
+        app: {{ include "vixun.fullname" . }}-mongodb
+    spec:
+      containers:
+        - name: {{ include "vixun.fullname" . }}-mongodb
+          image: "{{ .Values.vixunMongoStatefulSet.image.repository }}:{{ .Values.vixunMongoStatefulSet.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.vixunMongoStatefulSet.image.pullPolicy }}
+          ports:
+            - name: {{ include "vixun.fullname" . }}-mongodb
+              containerPort: {{ .Values.vixunMongoService.port }}
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.vixunMongoStatefulSet.resources | nindent 12 }}
+          volumeMounts:
+             - name: {{ include "vixun.fullname" . }}-mongodb-data
+               mountPath: /data/db
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "vixun.fullname" . }}-mongodb-secret
+                  key: MONGO_INITDB_ROOT_USERNAME
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "vixun.fullname" . }}-mongodb-secret
+                  key: MONGO_INITDB_ROOT_PASSWORD
+            - name: MONGO_INITDB_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "vixun.fullname" . }}-secret
+                  key: MONGODB
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ include "vixun.fullname" . }}-mongodb-data
+      spec:
+          accessModes: ["ReadWriteOnce"]
+          storageClassName: "standard"
+          resources:
+            requests:
+                storage: 1Gi
+              

@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "vixun.fullname" . }}-mnge
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ include "vixun.fullname" . }}-mnge
+  template:
+    metadata:
+      labels:
+        app: {{ include "vixun.fullname" . }}-mnge
+    spec:
+      containers:
+        - name: {{ include "vixun.fullname" . }}-mnge
+          image: "{{ .Values.vixunMongoExpressDeployment.image.repository }}:{{ .Values.vixunMongoExpressDeployment.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.vixunMongoExpressDeployment.image.pullPolicy }}
+          ports:
+            - name: {{ include "vixun.fullname" . }}-mnge
+              containerPort: {{ .Values.vixunMongoExpressService.port }}
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.vixunMongoExpressDeployment.resources | nindent 12 }}
+          env:
+            - name: ME_CONFIG_MONGODB_ADMINUSERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "vixun.fullname" . }}-mongodb-secret
+                  key: MONGO_INITDB_ROOT_USERNAME
+            - name: ME_CONFIG_MONGODB_ADMINPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "vixun.fullname" . }}-mongodb-secret
+                  key: MONGO_INITDB_ROOT_PASSWORD
+            - name: ME_CONFIG_MONGODB_SERVER
+              value: {{ include "vixun.fullname" . }}-mongodb

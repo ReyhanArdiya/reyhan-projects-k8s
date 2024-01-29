@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "vixun.fullname" . }}-mongodb
+spec:
+  type: {{ .Values.vixunMongoService.type }}
+  ports:
+    - port: {{ .Values.vixunMongoService.port }}
+      targetPort: {{ .Values.vixunMongoService.port }}
+      protocol: TCP
+      name: vixun-mongodb
+  selector:
+    app: {{ include "vixun.fullname" . }}-mongodb

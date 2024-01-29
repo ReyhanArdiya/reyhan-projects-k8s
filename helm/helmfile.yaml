@@ -7,6 +7,10 @@ releases:
     chart: ./show-search
     installed: true
     namespace: show-search
+  - name: vixun
+    chart: ./vixun
+    installed: true
+    namespace: vixun
   - name: main-ingress
     chart: ./main-ingress
     installed: false
