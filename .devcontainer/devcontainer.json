@@ -23,6 +23,13 @@
 		"32004": {
 			"label": "vixun-mongo-express"
 		}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"Tim-Koehler.helm-intellisense"
+			]
+		}
 	}
 	
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "i-can-do-it.fullname" . }}
+  labels:
+    {{- include "i-can-do-it.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.ports.app }}
+      protocol: TCP
+      name: i-can-do-it-app
+  selector:
+    {{- include "i-can-do-it.selectorLabels" . | nindent 4 }}

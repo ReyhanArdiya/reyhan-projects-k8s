@@ -1,0 +1,5 @@
+releases:
+  - name: i-can-do-it
+    chart: ./i-can-do-it
+    installed: true
+    namespace: icdi
