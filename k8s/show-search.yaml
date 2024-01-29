@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: show-search
+  namespace: show-search
+spec:
+  selector:
+    matchLabels:
+      app: show-search
+  template:
+    metadata:
+      labels:
+        app: show-search
+    spec:
+      containers:
+        - name: show-search
+          image: ghcr.io/reyhanardiya/reyhan-projects-k8s-show-search:main
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: show-search
+  namespace: show-search
+spec:
+  type: LoadBalancer
+  selector:
+    app: show-search
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30080

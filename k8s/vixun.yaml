@@ -1,0 +1,113 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vixun-config
+  namespace: vixun
+data:
+  PORT: "3000"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vixun-secret
+  namespace: vixun
+type: Opaque
+data:
+  MONGO_URL: ""
+  CLOUDINARY_API_KEY: "MzI3NjgxOTU3MjEyOTQ5"
+  CLOUDINARY_API_SECRET: "N09SekJMUEpaMGdqVmhMT3RjYTVYZWxCdFhn"
+  CLOUDINARY_CLOUD_NAME: "ZGl6ZnFpYTZu"
+  SESSION_NAME: "dml4c2VzdW5pb24="
+  SESSION_SECRET: "VklYVU5TRUNSRVRCQUJZ"
+  SPOTIFY_CLIENT_ID: "YWVjYWNjN2ZkZDllNDQ3YWJkZjAxMGVkZWFjYjU3MWQ="
+  SPOTIFY_CLIENT_SECRET: "NjQ2NmIzMGE1YjAwNDAzYzlmNThjZDZjYjgxODgyZTI="
+  MONGODB: "VklYVU5EQg=="
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vixun
+  namespace: vixun
+spec:
+  selector:
+    app: vixun
+  type: LoadBalancer
+  ports:
+    - port: 3000
+      targetPort: 3000
+      nodePort: 30338
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vixun
+  namespace: vixun
+spec:
+  selector:
+    matchLabels:
+      app: vixun
+  template:
+    metadata:
+      labels:
+        app: vixun
+    spec:
+      containers:
+        - name: vixun
+          image: ghcr.io/reyhanardiya/reyhan-projects-k8s-vixun:main
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 3000
+          env:
+            - name: FIREBASE_SERVICE_ACCOUNT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: vixun-secret
+                  key: FIREBASE_SERVICE_ACCOUNT_KEY
+            - name: NEXT_PUBLIC_FIREBASE_CLIENT_APPID
+              valueFrom:
+                configMapKeyRef:
+                  name: vixun-config
+                  key: NEXT_PUBLIC_FIREBASE_CLIENT_APPID
+            - name: NEXT_PUBLIC_FIREBASE_CLIENT_MESSAGINGSENDERID
+              valueFrom:
+                configMapKeyRef:
+                  name: vixun-config
+                  key: NEXT_PUBLIC_FIREBASE_CLIENT_MESSAGINGSENDERID
+            - name: NEXT_PUBLIC_FIREBASE_CLIENT_STORAGEBUCKET
+              valueFrom:
+                configMapKeyRef:
+                  name: vixun-config
+                  key: NEXT_PUBLIC_FIREBASE_CLIENT_STORAGEBUCKET
+            - name: NEXT_PUBLIC_FIREBASE_CLIENT_PROJECTID
+              valueFrom:
+                configMapKeyRef:
+                  name: vixun-config
+                  key: NEXT_PUBLIC_FIREBASE_CLIENT_PROJECTID
+            - name: NEXT_PUBLIC_FIREBASE_CLIENT_AUTHDOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  name: vixun-config
+                  key: NEXT_PUBLIC_FIREBASE_CLIENT_AUTHDOMAIN
+            - name: NEXT_PUBLIC_FIREBASE_CLIENT_APIKEY
+              valueFrom:
+                configMapKeyRef:
+                  name: vixun-config
+                  key: NEXT_PUBLIC_FIREBASE_CLIENT_APIKEY
+            - name: NEXT_PUBLIC_EMULATOR_FIRESTORE_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: vixun-config
+                  key: NEXT_PUBLIC_EMULATOR_FIRESTORE_PORT
+            - name: NEXT_PUBLIC_EMULATOR_AUTH_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: vixun-config
+                  key: NEXT_PUBLIC_EMULATOR_AUTH_PORT
+            - name: NEXT_PUBLIC_EMULATOR_STORAGE_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: vixun-config
+                  key: NEXT_PUBLIC_EMULATOR_STORAGE_PORT

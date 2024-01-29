@@ -1,0 +1,15 @@
+.vscode/
+node_modules
+.dockerignore
+.env
+.eslintrc.json
+.gitignore
+Dockerfile
+LICENSE
+VIXUN.drawio
+jsconfig.json
+nodemon.json
+vercel.json
+README.md
+docker-compose.*
+secrets

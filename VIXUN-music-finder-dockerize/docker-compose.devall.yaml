@@ -1,0 +1,47 @@
+version: "3"
+services:
+    mongodb:
+        extends:
+            file: docker-compose.dev.yaml
+            service: mongodb
+    mongo-express:
+        extends:
+            file: docker-compose.dev.yaml
+            service: mongo-express
+    vixun:
+        image: vixun:1.0.0
+        container_name: vixun
+        ports:
+            - 3000:3000
+        environment:
+            MONGODB: VIXUNDB
+            PORT: 3000
+        secrets:
+            - mongo_url
+            - cloudinary_api_key
+            - cloudinary_api_secret
+            - cloudinary_cloud_name
+            - session_name
+            - session_secret
+            - spotify_client_id
+            - spotify_client_secret
+volumes:
+    mongodb-data:
+        driver: local
+secrets:
+    mongo_url:
+        file: ./secrets/mongo_url.txt
+    cloudinary_api_key:
+        file: ./secrets/cloudinary_api_key.txt
+    cloudinary_api_secret:
+        file: ./secrets/cloudinary_api_secret.txt
+    cloudinary_cloud_name:
+        file: ./secrets/cloudinary_cloud_name.txt
+    session_name:
+        file: ./secrets/session_name.txt
+    session_secret:
+        file: ./secrets/session_secret.txt
+    spotify_client_id:
+        file: ./secrets/spotify_client_id.txt
+    spotify_client_secret:
+        file: ./secrets/spotify_client_secret.txt

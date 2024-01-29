@@ -1,0 +1,174 @@
+#display-browse-songs {
+	overflow-y: auto;
+	display: grid;
+	/* 9em mainly comes from a .song-card height + margin-top + adjustment
+	for bottom shadow  */
+	height: calc((5.15em + 4em + 0.15em) * 3);
+	font-size: 1em;
+	grid-auto-rows: max-content;
+	justify-content: center;
+	width: 100%;
+	grid-template-columns: 95%;
+	font: 700 1em "Mohave";
+	margin: 0 auto;
+	max-width: 500px;
+}
+
+#display-browse-songs::-webkit-scrollbar {
+	display: none;
+}
+
+.song-card {
+	display: grid;
+	grid-auto-columns: 1fr;
+	grid-auto-rows: 1fr;
+	grid-template-areas:
+		"title title"
+		"info  price";
+	box-shadow: var(--shadow-floating-box-bottom);
+	padding: 0em 0.5em 0em 1.3em;
+	position: relative;
+	height: 5.15em;
+	margin-top: 4em;
+	border-radius: 0.35em;
+	/* TODO make new var for relative border rad using 0.35em */
+	font-size: 1em;
+	background: white;
+	cursor: pointer;
+	user-select: none;
+}
+
+.song-card:last-of-type {
+	margin-bottom: 0.25em;
+}
+
+/* song cards overlay on hover/active */
+.song-card {
+	cursor: pointer;
+	position: relative;
+	/* add styles from here */
+}
+
+.song-card::after {
+	content: "";
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	background-color: black;
+	transition: opacity 0.25s linear;
+	border-radius: 0.35em;
+	font-size: 1em;
+}
+
+.song-card:hover::after {
+	opacity: 0.2;
+}
+
+.song-card:active::after {
+	opacity: 0.4;
+	transition: opacity 0.05s linear;
+}
+
+.song-card-image {
+	object-fit: cover;
+	border-radius: 5px;
+	box-shadow: var(--shadow-floating-box-bottom);
+	height: 4.65em;
+	width: 4.65em;
+	position: absolute;
+	left: 1em;
+	top: -2.7em;
+	z-index: 3;
+}
+
+/* FIXME i tried making the title scroll but it doesn't work :( */
+.song-card-artist {
+	grid-area: title;
+	text-align: center;
+}
+
+.song-card-info {
+	grid-area: info;
+	font: 100 1em "Quicksand";
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.song-card-info-scroll {
+	overflow-y: scroll;
+	align-items: start;
+	max-height: 90%;
+	z-index: 1;
+}
+
+.song-card-info-scroll::-webkit-scrollbar {
+	display: none;
+}
+
+.song-card-price {
+	grid-area: price;
+	text-align: right;
+}
+
+.song-card-artist,
+.song-card-price {
+	font-size: 1.9em;
+}
+
+@media screen and (max-width: calc(390em / 16)) {
+	#display-browse-songs {
+		/* 9em mainly comes from a .song-card height + margin-top + adjustment
+	for bottom shadow  */
+		height: calc((5.15em + 2em + 0.2em) * 3);
+	}
+
+	.song-card {
+		grid-template-areas:
+			"image title title"
+			"image info  price";
+		padding-left: 0;
+		margin-top: 2em;
+	}
+
+	.song-card-image {
+		grid-area: image;
+		position: relative;
+		top: 0;
+		left: 0;
+		width: 100%;
+		/* FIXME why does the height become taller than .song-card when using
+		100%? */
+		height: 5.15em;
+		max-width: 85px;
+		z-index: 0;
+	}
+
+	.song-card-artist {
+		width: max-content;
+	}
+}
+
+@media screen and (min-width: 48em) {
+	#display-browse-songs {
+		max-width: none;
+		width: 70%;
+		font-size: 1.25em;
+	}
+}
+
+@media screen and (min-width: 90em) {
+	#display-browse-songs {
+		font-size: 1.5em;
+		width: 100%;
+		grid-template-columns: 1fr 1fr;
+		grid-auto-flow: row;
+		justify-items: center;
+	}
+	.song-card {
+		width: 95%;
+	}
+}

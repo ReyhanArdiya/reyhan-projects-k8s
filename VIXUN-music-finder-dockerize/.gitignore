@@ -1,0 +1,7 @@
+.vscode/
+node_modules/
+request-log.txt
+*.mongodb
+*.restbook
+*.env
+secrets/

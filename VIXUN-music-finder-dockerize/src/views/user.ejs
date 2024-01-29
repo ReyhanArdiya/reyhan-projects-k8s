@@ -1,0 +1,96 @@
+<% layout("boilerplate") %>
+<% block("stylesheets").append(`
+<link rel="stylesheet" href="/common/styles/display-comments.css">
+<link rel="stylesheet" href="/user/styles/display-user.css">
+`) %>
+
+<main id="display-user">
+    <section id="user-info">
+        <div id="user-image">
+            <img src="<%= user.profile.path.replace("/upload", "/upload/w_250") %>" alt="">
+        </div>
+        <div id="user-name" class="title-card">
+            <h2><%= user.username %></h2>
+        </div>
+        <form action="/user/profile" enctype="multipart/form-data" method="post" id="form-profile">
+            <input type="file" name="img" id="form-profile-input">
+            <button>submit</button>
+        </form>
+        <footer id="user-buttons">
+            <form id="user-logout" action="/auth/logout" method="post">
+                <button>Logout</button>
+            </form>
+            <form id="user-delete" action="/user?_method=DELETE" method="post">
+                <button>Delete</button>
+            </form>
+        </footer>
+    </section>
+
+    <section id="display-favorites">
+        <h2>FAVORITES</h2>
+        <section id="display-favorites-list">
+            <% for (const song of favorites) { %>
+            <p><a href="/songs/<%= song._id %> "><%= song.title %> <%= song.album %> <%= song.artist %></a></p>
+            <% } %>
+        </section>
+    </section>
+
+    <section id="display-comments">
+        <div class="title-card">
+            <h2>COMMENTS</h2>
+        </div>
+
+        <section id="display-comments-render">
+            <% for (const comment of comments) { %>
+            <article class="comment">
+                <p name="text" class="comment-text"><%= comment.text %></p>
+                <footer class="comment-footer">
+                    <a class="comment-song" href="/songs/<%= comment.song._id %>">
+                        At <span class="comment-song-title"><%= comment.song.title %></span> by <span
+                            class="comment-song-artist"><%= comment.song.artist %></span>
+                    </a>
+                </footer>
+            </article>
+            <% } %>
+        </section>
+
+        <svg class="circle-decoration-red circle-decoration-hollow" width="30" height="27" viewBox="0 0 30 27"
+            fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="11" cy="16" r="11" fill="#FF0000" />
+            <circle cx="11" cy="16" r="8" fill="white" />
+            <path
+                d="M5.64622 18.4681L9.51088 19.8204C10.8929 20.304 12.3091 19.1875 12.1612 17.7307L11.8442 14.6062C11.7071 13.2552 12.9274 12.1632 14.2549 12.4491L17.5273 13.1537C18.9062 13.4506 20.1509 12.2652 19.9218 10.8735L19.5025 8.3273C19.2647 6.8829 20.6082 5.68075 22.0174 6.07705L24.2072 6.69288C25.6401 7.09584 26.9954 5.84823 26.7121 4.38694L26.1462 1.46806"
+                stroke="black" stroke-width="2" stroke-linecap="round" />
+        </svg>
+
+        <svg class="circle-decoration-purple" width="54" height="50" viewBox="0 0 54 50" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <circle cx="33.5172" cy="20.4828" r="20.4828" fill="#A129FF" />
+            <path
+                d="M34.902 48.1676L38.174 38.3646C38.6376 36.9757 37.5006 35.5758 36.0462 35.7447L25.1898 37.0052C23.841 37.1619 22.7315 35.9574 22.9981 34.6259L25.1844 23.7066C25.4613 22.3236 24.2581 21.0962 22.8699 21.3454L12.9813 23.121C11.5404 23.3797 10.319 22.0537 10.6949 20.6389L13.196 11.2245C13.5782 9.78591 12.3111 8.44883 10.8541 8.75322L2.69797 10.4571"
+                stroke="black" stroke-width="2" stroke-linecap="round" />
+        </svg>
+
+        <svg class="circle-decoration-purple" width="20" height="20" viewBox="0 0 20 20" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <circle cx="9.16751" cy="12.3559" r="7.6441" fill="#A129FF" />
+            <path
+                d="M18.5232 10.1962L16.8859 11.1324C15.6148 11.8592 14.0193 11.0187 13.8998 9.55936L13.8685 9.1764C13.7577 7.82299 12.3592 6.97108 11.1058 7.49347L10.5327 7.73231C9.24401 8.26939 7.81919 7.33965 7.79182 5.94378L7.7889 5.79486C7.76185 4.41551 6.3108 3.5316 5.07272 4.14029V4.14029C3.81381 4.75923 2.34408 3.83519 2.35625 2.43241L2.36722 1.16913"
+                stroke="black" stroke-width="2" stroke-linecap="round" />
+        </svg>
+
+        <svg class="circle-decoration-red circle-decoration-hollow" width="50" height="47" viewBox="0 0 50 47"
+            fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="19.0136" cy="19.0136" r="19.0136" fill="#FF0000" />
+            <circle cx="19.0136" cy="19.0136" r="13.8281" fill="white" />
+            <path
+                d="M8.03102 38.8362L16.8732 41.9304C18.2552 42.414 19.6714 41.2974 19.5236 39.8407L18.542 30.1678C18.4049 28.8168 19.6253 27.7248 20.9528 28.0107L30.6597 30.1007C32.0385 30.3976 33.2832 29.2123 33.0541 27.8206L31.6097 19.0487C31.3719 17.6043 32.7154 16.4021 34.1246 16.7984L42.3883 19.1224C43.8212 19.5253 45.1765 18.2777 44.8932 16.8164L43.4655 9.45161"
+                stroke="black" stroke-width="2" stroke-linecap="round" />
+        </svg>
+    </section>
+</main>
+
+<% block("scripts").append(`
+<script src="/user/scripts/profile.js"></script>
+<script src="/user/scripts/swal-delete-user.js"></script>
+`) %>

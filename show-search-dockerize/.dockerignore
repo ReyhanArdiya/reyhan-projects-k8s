@@ -1,0 +1,9 @@
+.git/
+.vscode/
+.dockerignore
+.gitingore
+.eslintrc.json
+LICENSE
+jsconfig.json
+README.md
+node_modules/

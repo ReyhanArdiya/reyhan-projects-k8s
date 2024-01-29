@@ -1,0 +1,166 @@
+/* #region NAVBAR MAIN CONTAINER */
+
+#navbar-main {
+	background: var(--primary-pale-black);
+	bottom: 0;
+	height: 10vh;
+	position: fixed;
+	min-height: var(--navbar-main--max-height-small);
+	max-height: var(--navbar-main--max-height-small);
+	width: 100%;
+	z-index: 11;
+	min-width: 320px;
+}
+
+.navbar-main-shadow {
+	box-shadow: var(--shadow-floating-box-bottom);
+}
+
+@media screen and (min-width: 90em) {
+	#navbar-main {
+		font-size: 1.5em;
+		max-height: 96px;
+	}
+}
+
+/* #endregion NAVBAR MAIN CONTAINER */
+
+/* #region NAVBAR MAIN CONTENT */
+
+#navbar-main-content {
+	align-items: center;
+	display: flex;
+	justify-content: space-around;
+	width: 100%;
+	height: 100%;
+	background: var(--primary-pale-black);
+}
+
+/* #region NAVBAR MAIN CONTENT ICONS */
+
+/* #icon-cart {
+	height: 55%;
+	flex: 1;
+} */
+
+#icon-account.admin path {
+	fill: rgb(255, 220, 67);
+}
+
+#icon-home {
+	height: 55%;
+	flex: 1;
+}
+
+#icon-home path {
+	fill: white;
+}
+
+#icon-hamburger {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+}
+
+#navbar-main-content [id^="icon"]:not(#icon-home) {
+	height: 50%;
+	flex: 1;
+}
+
+#navbar-main-content [id^="icon"] path,
+#icon-hamburger svg {
+	cursor: pointer;
+	user-select: none;
+	-webkit-tap-highlight-color: transparent;
+}
+
+#navbar-main-content [id^="icon"] path:hover,
+#icon-hamburger svg:hover path {
+	fill: var(--primary-bright-purple);
+}
+
+#navbar-main-content [id^="icon"] path:active,
+#icon-hamburger svg:active path {
+	fill: var(--primary-bright-purple-active);
+}
+
+/* #endregion NAVBAR MAIN CONTENT ICONS */
+
+/* #region NAVBAR MAIN CONTENT TEXT */
+
+#navbar-main-content-text-container p {
+	color: white;
+	font: 700 1.75em "Mohave";
+	cursor: pointer;
+	user-select: none;
+	-webkit-tap-highlight-color: transparent;
+}
+
+#navbar-main-content-text-container p:hover {
+	color: var(--primary-bright-red);
+}
+
+#navbar-main-content-text-container p:active {
+	color: var(--primary-bright-red-active);
+}
+
+/* #endregion NAVBAR MAIN CONTENT TEXT */
+
+/* #endregion NAVBAR MAIN CONTENT */
+
+/* #region NAVBAR MAIN DROPDOWN */
+
+#navbar-main-dropdown {
+	align-items: center;
+	background: var(--primary-pale-black);
+	border-top-left-radius: var(--border-radius-rounded);
+	border-top-right-radius: var(--border-radius-rounded);
+	box-shadow: var(--shadow-floating-box-top);
+	color: white;
+	display: flex;
+	flex-direction: column;
+	font: 700 1.5em "Quicksand", sans-serif;
+	height: 180%;
+	justify-content: space-evenly;
+	position: absolute;
+	top: 180%;
+	width: 100%;
+	transition: top 0.4s ease-in;
+	z-index: -3;
+}
+
+.navbar-main-dropdown-show {
+	top: -178% !important;
+}
+
+#navbar-main-dropdown p {
+	cursor: pointer;
+	user-select: none;
+	-webkit-tap-highlight-color: transparent;
+}
+
+#navbar-main-dropdown p:hover {
+	color: var(--primary-bright-red);
+}
+
+#navbar-main-dropdown p:active {
+	color: var(--primary-bright-red-active);
+}
+
+/* #endregion NAVBAR MAIN DROPDOWN */
+
+@media screen and (min-width: 48em) {
+	#navbar-main {
+		position: sticky;
+		top: 0;
+	}
+	#navbar-main-content-text-container {
+		flex: 5;
+		align-items: center;
+		display: flex;
+		justify-content: space-evenly;
+	}
+	#navbar-main-dropdown {
+		display: none;
+	}
+}

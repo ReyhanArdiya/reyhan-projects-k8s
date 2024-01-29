@@ -1,0 +1,17 @@
+repositories:
+  - name: helloworld
+    url: git+https://github.com/rahulwagh/helmchart@helloworld?ref=master&sparse=0
+
+releases:
+  - name: hw-helmfile
+    chart: ./hw-helmfile
+    installed: false
+  - name: helloworld-remote
+    chart: helloworld/helloworld
+    installed: true
+  - name: python-project
+    chart: ./python-project-rahul
+    installed: true
+    namespace: python
+  - name: wordpress
+    chart: bitnami/

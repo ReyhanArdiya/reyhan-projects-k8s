@@ -1,0 +1,258 @@
+#display-user {
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+	flex-direction: column;
+	font-size: 1em;
+	row-gap: 1em;
+}
+
+#user-image {
+	align-items: center;
+	border-radius: var(--border-radius-rounded);
+	box-shadow: var(--shadow-floating-box-bottom);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	position: relative;
+	user-select: none;
+	width: 10em;
+	height: 10em;
+	object-fit: cover;
+	font-size: 1em;
+}
+
+#user-image img {
+	width: 100%;
+	height: 100%;
+	border-radius: inherit;
+}
+
+#user-image svg {
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
+
+#user-info {
+	width: 100%;
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	row-gap: 1em;
+	font-size: 1em;
+}
+
+#user-name {
+	font: 700 1em "Mohave";
+	width: max-content;
+	min-width: 14em;
+	max-width: 14em;
+	overflow-y: auto;
+	padding-left: 1em;
+	padding-right: 1em;
+	margin: 0;
+}
+
+#user-name::-webkit-scrollbar {
+	display: none;
+}
+
+#user-name h2 {
+	width: 100%;
+	height: 100%;
+	text-align: center;
+}
+
+#user-buttons {
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+	column-gap: 2em;
+}
+
+#user-buttons > * {
+	align-items: center;
+	background: var(--gradient-purple-red);
+	border-radius: var(--border-radius-rounded);
+	box-shadow: var(--shadow-floating-box-bottom);
+	display: flex;
+	justify-content: center;
+}
+
+#user-buttons > * button {
+	border: none;
+	outline: none;
+	padding: 0.75em;
+	font: 700 1.25em "Quicksand";
+	background: none;
+	color: white;
+}
+
+/* user logout button overlay on hover/active */
+#user-buttons > * button {
+	cursor: pointer;
+	position: relative;
+}
+
+#user-buttons > * button::before {
+	content: "";
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	background-color: black;
+	transition: opacity 0.25s linear;
+}
+
+#user-buttons > * button:hover::before {
+	opacity: 0.2;
+}
+
+#user-buttons > * button:active::before {
+	opacity: 0.4;
+	transition: opacity 0.05s linear;
+}
+
+#form-profile {
+	display: none;
+}
+
+/* TODO add user delete */
+
+/* #region -------------------USER FAVORITES---------------------------------------------- */
+
+#display-favorites {
+	margin-top: 1em;
+	display: flex;
+	font: 1em "Quicksand";
+	text-align: center;
+	width: 80%;
+	height: max-content;
+	border-radius: var(--border-radius-rounded);
+	box-shadow: var(--shadow-floating-box-bottom);
+	flex-direction: column;
+	row-gap: 0.5em;
+	padding-bottom: 0.25em;
+	background: white;
+}
+
+#display-favorites h2 {
+	background: var(--gradient-purple-red);
+	border-radius: inherit;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+	border-bottom: 0.1em solid var(--primary-pale-black);
+	color: white;
+	font: 700 1.75em "Quicksand";
+	grid-area: artist;
+	padding: 0.25em 0;
+	width: 100%;
+}
+
+#display-favorites-list {
+	display: flex;
+	font-size: 1em;
+	flex-direction: column;
+	row-gap: 0.5em;
+	padding-bottom: 0.25em;
+	overflow-x: scroll;
+	height: 30vh;
+	max-height: 130px;
+}
+
+#display-favorites-list p {
+	background: var(--gradient-purple-red);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-moz-background-clip: text;
+	color: transparent;
+	font-weight: 700;
+	grid-area: title;
+	font-size: 1em;
+}
+
+/* #endregion ================USER FAVORITES============================================== */
+
+/* #region -------------------USER COMMENTS---------------------------------------------- */
+
+#display-comments .title-card {
+	margin: 1em 0;
+	padding: 0.5em;
+}
+
+#display-comments .title-card h2 {
+	font-size: 1.25em;
+}
+
+.comment-footer {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	padding: 0;
+}
+
+.comment-song {
+	font-size: 1em;
+	width: 100%;
+	text-align: left;
+	padding-left: 1em;
+}
+
+.comment-song-title,
+.comment-song-artist {
+	background: var(--gradient-purple-red);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-moz-background-clip: text;
+	color: transparent;
+}
+
+/* #endregion ================USER COMMENTS============================================== */
+
+@media screen and (min-width: 48em) {
+	#display-user {
+		margin-top: 1em;
+		display: grid;
+		grid-template-columns: 0.4fr 0.6fr;
+		grid-template-rows: 1fr;
+		grid-template-areas:
+			"info favorites"
+			"info comments";
+		justify-items: center;
+	}
+
+	#user-info {
+		grid-area: info;
+		font-size: 1.25em;
+	}
+
+	#display-favorites {
+		grid-area: favorites;
+		font-size: 1.25em;
+	}
+
+	#display-comments {
+		grid-area: comments;
+	}
+
+	#display-comments-render {
+		height: calc(
+			(var(--comment-height) + var(--top-bottom-space) * 2) * 0.825
+		);
+	}
+}
+
+@media screen and (min-width: 90em) {
+	#user-info {
+		font-size: 1.5em;
+	}
+
+	#display-favorites {
+		font-size: 1.5em;
+	}
+}

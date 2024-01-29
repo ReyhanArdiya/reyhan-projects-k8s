@@ -1,0 +1,39 @@
+/* CSS VARIABLES */
+:root {
+	--primary-pale-black: #212121;
+	--primary-bright-red: #ff0000;
+	--primary-bright-red-active: #b10303;
+	--primary-bright-purple: #a129ff;
+	--primary-bright-purple-active: #741fb4;
+	/* Add this variabel on the background property */
+	--gradient-purple-red: radial-gradient(
+		119.32% 933.69% at 100% 4.05%,
+		#ff0000 0%,
+		#ca1791 45.85%,
+		#a129ff 99.23%
+	);
+	--semantic-gray-dark: #585858;
+	--semantic-gray-medium: #555454;
+	--shadow-floating-box-top: 0px -0.045em 0.21em 0.045em #4c4c4c99;
+	--shadow-floating-box-bottom: 0px 0.045em 0.21em 0.045em #4c4c4c99;
+	--border-radius-rounded: 5px;
+	--navbar-main--max-height-small: 64px;
+	--main-margin-top: 1.1em;
+}
+
+html {
+	font-size: 1em;
+	scroll-behavior: smooth;
+}
+
+body {
+	min-width: 320px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	min-height: 100vh;
+}
+
+* {
+	-webkit-tap-highlight-color: transparent;
+}

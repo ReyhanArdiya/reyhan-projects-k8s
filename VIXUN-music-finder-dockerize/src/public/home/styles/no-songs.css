@@ -1,0 +1,19 @@
+#no-songs {
+	display: none;
+	font-size: 2.5em;
+	color: var(--primary-pale-black);
+}
+
+#display-browse-songs.no-songs {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+}
+
+#display-browse-songs.no-songs #no-songs {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	text-align: center;
+}

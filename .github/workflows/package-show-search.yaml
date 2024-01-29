@@ -1,0 +1,53 @@
+name: Package Show Search
+
+on:
+    push:
+        branches:
+            - main
+        paths:
+            - "show-search-dockerize/**"
+    workflow_dispatch:
+
+env:
+    REGISTRY: ghcr.io
+    IMAGE_NAME: ${{ github.repository }}
+
+permissions:
+    contents: read
+    packages: write
+
+jobs:
+    package-to-ghcr:
+        name: Package Show Search
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Login to GitHub Container Registry
+              uses: docker/login-action@v3
+              with:
+                  registry: ${{ env.REGISTRY }}
+                  username: ${{ github.actor }}
+                  password: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Extract metadata (tags, labels) for Docker
+              id: meta
+              uses: docker/metadata-action@v5
+              with:
+                  images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-show-search
+
+            - name: Check meta
+              run: |
+                  echo "${{ steps.meta.outputs.tags }}"
+                  echo "${{ steps.meta.outputs.labels }}"
+
+            - name: Build and push Docker image to GitHub Packages
+              uses: docker/build-push-action@v5
+              id: docker_build
+              with:
+                  context: ./show-search-dockerize
+                  push: true
+                  tags: ${{ steps.meta.outputs.tags }}
+                  labels: ${{ steps.meta.outputs.labels }}
+                  target: prod

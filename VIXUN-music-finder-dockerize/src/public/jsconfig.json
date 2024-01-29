@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+		"module": "ES6",
+		"target": "ES2021",
+		"checkJs": false,
+		"allowJs": true,
+		"alwaysStrict": true,
+		"strict": true,
+		"strictNullChecks": false,
+		"noImplicitAny": false
+	},
+	"exclude": ["node_modules"],
+	"typeAcquisition": { "exclude": ["node"] }
+}

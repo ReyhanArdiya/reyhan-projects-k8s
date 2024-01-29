@@ -1,0 +1,4 @@
+.just-validate-error-label {
+	box-shadow: var(--shadow-floating-box-bottom) !important;
+	border-radius: var(--border-radius-rounded) !important;
+}

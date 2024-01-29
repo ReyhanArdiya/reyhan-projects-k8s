@@ -1,0 +1,454 @@
+#display-song {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	font-size: 1em;
+	height: max-content;
+	justify-content: space-between;
+	row-gap: 1.25em;
+	position: relative;
+}
+
+/* #region -------------------SONG IMAGE------------------------------------- */
+
+#song-image {
+	align-items: center;
+	border-radius: var(--border-radius-rounded);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	position: relative;
+	user-select: none;
+	width: 50%;
+}
+
+/* song image overlay on hover/active */
+#song-image {
+	cursor: pointer;
+	position: relative;
+}
+
+#song-image::before {
+	background-color: black;
+	border-radius: inherit;
+	content: "";
+	height: 100%;
+	left: 0;
+	opacity: 0;
+	position: absolute;
+	top: 0;
+	transition: opacity 0.25s linear;
+	width: 100%;
+}
+
+#song-image:hover::before {
+	opacity: 0.2;
+}
+
+#song-image:active::before {
+	opacity: 0.4;
+	transition: opacity 0.05s linear;
+}
+
+#song-play,
+#song-pause {
+	backdrop-filter: blur(1.25px);
+	border-radius: 50%;
+	height: 20vw;
+	position: absolute;
+	width: 20vw;
+	fill-opacity: 0.7;
+}
+
+#song-pause {
+	display: none;
+}
+
+#song-image img {
+	border-radius: inherit;
+	width: 100%;
+	box-shadow: var(--shadow-floating-box-bottom);
+}
+
+/* #endregion ================SONG IMAGE===================================== */
+
+/* #region -------------------SONG INFO-------------------------------------- */
+
+#song-info {
+	display: grid;
+	font: 1em "Quicksand";
+	text-align: center;
+	width: 80%;
+	height: max-content;
+	border-radius: var(--border-radius-rounded);
+	box-shadow: var(--shadow-floating-box-bottom);
+	grid-template-areas:
+		"artist"
+		"title"
+		"footer";
+	grid-template-columns: 1fr;
+	row-gap: 0.5em;
+	padding-bottom: 0.25em;
+	background: white;
+}
+
+#song-artist {
+	background: var(--gradient-purple-red);
+	border-radius: inherit;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+	border-bottom: 0.1em solid var(--primary-pale-black);
+	color: white;
+	font: 700 1.5em "Quicksand";
+	grid-area: artist;
+	padding: 0.25em 0;
+	width: 100%;
+}
+
+#song-title {
+	/* CMT i actually want to change the gradient color based on the image's color
+	but idk how to do a color picker yet :/ */
+	background: var(--gradient-purple-red);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-moz-background-clip: text;
+	color: transparent;
+	font-weight: 700;
+	grid-area: title;
+	font-size: 2em;
+}
+
+#song-info footer {
+	--bottom-side-padding: 0.75em;
+	grid-area: footer;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+#song-album {
+	color: var(--primary-bright-purple);
+	font-weight: 500;
+	grid-area: album;
+	text-align: left;
+	flex-grow: 0.8;
+	padding-left: var(--bottom-side-padding);
+}
+
+#song-price {
+	color: var(--primary-pale-black);
+	font: 700 1em "Mohave";
+	grid-area: price;
+	align-items: center;
+	display: flex;
+	justify-content: flex-end;
+	flex-grow: 0.2;
+	padding-right: var(--bottom-side-padding);
+}
+
+/* #endregion ================SONG INFO====================================== */
+
+/* #region -------------------SONG LINKS------------------------------------- */
+
+#song-links {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	row-gap: 0.9em;
+	width: 100%;
+}
+
+.song-link {
+	align-items: center;
+	border-radius: var(--border-radius-rounded);
+	box-shadow: var(--shadow-floating-box-bottom);
+	display: flex;
+	font: 700 1em "Quicksand";
+	justify-content: space-between;
+	min-height: 45px;
+	padding-left: 0.65em;
+	padding-right: 0.5em;
+	width: 80%;
+}
+
+/* song link overlay on hover/active */
+.song-link {
+	cursor: pointer;
+	position: relative;
+}
+
+.song-link::before {
+	border-radius: inherit;
+	content: "";
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	background-color: black;
+	transition: opacity 0.25s linear;
+}
+
+.song-link:hover::before {
+	opacity: 0.2;
+}
+
+.song-link:active::before {
+	opacity: 0.4;
+	transition: opacity 0.05s linear;
+}
+
+.song-link p {
+	text-align: right;
+	user-select: none;
+}
+
+#song-link-spotify {
+	background: linear-gradient(
+		180deg,
+		#1ed761 0%,
+		#c5ff67 119.04%,
+		rgba(30, 215, 97, 0) 119.05%
+	);
+}
+
+#song-link-deezer {
+	background: linear-gradient(
+		180deg,
+		#ff9820 0%,
+		#ff0000 58.43%,
+		#bd00ff 120.25%
+	);
+}
+
+#song-link-amazon {
+	background: linear-gradient(180deg, #e47911 0%, #ffeb3b 119.91%);
+}
+
+/* #endregion ================SONG LINKS===================================== */
+
+/* #region -------------------SONG BUTTONS------------------------------------ */
+
+#display-song-buttons {
+	align-items: stretch;
+	border-radius: var(--border-radius-rounded);
+	display: flex;
+	gap: 1em;
+	justify-content: space-between;
+	width: 80%;
+}
+
+#display-song-buttons > * {
+	align-items: center;
+	background: var(--gradient-purple-red);
+	border-radius: inherit;
+	border: none;
+	box-shadow: var(--shadow-floating-box-bottom);
+	display: flex;
+	flex-grow: 1;
+	font-size: 1em;
+	justify-content: center;
+	outline: none;
+}
+
+#display-song-buttons button {
+	border-radius: inherit;
+	border: inherit;
+	outline: inherit;
+	padding: 0.5em 0;
+}
+
+#display-song-buttons svg {
+	fill: white;
+}
+
+#back button {
+	background: none;
+	width: 100%;
+}
+
+#favorite {
+	position: relative;
+}
+
+#favorite:disabled {
+	background: var(--semantic-gray-medium);
+}
+
+#favorite:disabled::before {
+	content: "";
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	border-radius: inherit;
+	background: inherit;
+	opacity: 0.5;
+	z-index: 2;
+}
+
+#favorite.added {
+	background: linear-gradient(90deg, #74ffa6 0%, #beff53 99.99%);
+}
+
+/* song buttons overlay on hover/active */
+#display-song-buttons button:not(:disabled) {
+	cursor: pointer;
+	position: relative;
+}
+
+#display-song-buttons button:not(:disabled)::before {
+	border-radius: inherit;
+	content: "";
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	background-color: black;
+	transition: opacity 0.25s linear;
+}
+
+#display-song-buttons button:not(:disabled):hover::before {
+	opacity: 0.2;
+}
+
+#display-song-buttons button:not(:disabled):active::before {
+	opacity: 0.4;
+	transition: opacity 0.05s linear;
+}
+
+#form-delete-song {
+	position: fixed;
+	z-index: 20;
+}
+
+/* #endregion ================SONG BUTTONS==================================== */
+
+/* #region -------------------SONG CIRCLE DECORATIONS------------------------ */
+
+#display-song svg[class*="circle-decoration"] {
+	z-index: -1;
+}
+
+#display-song svg[class*="circle-decoration"]:nth-of-type(1) {
+	font-size: 1.25em;
+	left: 12%;
+	top: -3%;
+}
+
+#display-song svg[class*="circle-decoration"]:nth-of-type(2) {
+	font-size: 2.5em;
+	right: 15%;
+	top: 15%;
+}
+
+#display-song svg[class*="circle-decoration"]:nth-of-type(3) {
+	font-size: 1em;
+	left: 5%;
+	top: 30%;
+}
+
+#display-song svg[class*="circle-decoration"]:nth-of-type(4) {
+	font-size: 3em;
+	right: 0%;
+	bottom: 35%;
+}
+
+/* #endregion ================SONG CIRCLE DECORATIONS======================== */
+
+@media screen and (min-width: 48em) {
+	#display-song {
+		align-items: flex-start;
+		display: grid;
+		font-size: 1.25em;
+		grid-template-areas:
+			"image links"
+			"info buttons";
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: max-content max-content;
+		justify-items: center;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 1.1em;
+		width: 90%;
+	}
+
+	#song-image {
+		grid-area: image;
+	}
+
+	#song-info {
+		grid-area: info;
+	}
+
+	#song-play,
+	#song-pause {
+		height: 8.5vw;
+		width: 8.5vw;
+	}
+
+	#song-links {
+		grid-area: links;
+	}
+
+	#display-song-buttons {
+		grid-area: buttons;
+	}
+
+	#display-song svg[class*="circle-decoration"]:nth-of-type(1) {
+		font-size: 1.5em;
+		left: 6%;
+		top: -3%;
+	}
+
+	#display-song svg[class*="circle-decoration"]:nth-of-type(2) {
+		font-size: 2.75em;
+		right: 0%;
+		top: 20%;
+	}
+
+	#display-song svg[class*="circle-decoration"]:nth-of-type(3) {
+		font-size: 1.25em;
+		left: 0%;
+		top: 50%;
+	}
+
+	#display-song svg[class*="circle-decoration"]:nth-of-type(4) {
+		font-size: 3.25em;
+		right: 0%;
+		bottom: -10%;
+	}
+}
+
+@media screen and (min-width: 90em) {
+	#display-song {
+		font-size: 1.5em;
+	}
+
+	#display-song svg[class*="circle-decoration"]:nth-of-type(1) {
+		font-size: 1.75em;
+		left: 6%;
+		top: -3%;
+	}
+
+	#display-song svg[class*="circle-decoration"]:nth-of-type(2) {
+		font-size: 3em;
+		right: 0%;
+		top: 20%;
+	}
+
+	#display-song svg[class*="circle-decoration"]:nth-of-type(3) {
+		font-size: 1.5em;
+		left: 0%;
+		top: 50%;
+	}
+
+	#display-song svg[class*="circle-decoration"]:nth-of-type(4) {
+		font-size: 3.5em;
+		right: 0%;
+		bottom: -10%;
+	}
+}

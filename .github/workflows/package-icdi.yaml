@@ -1,0 +1,69 @@
+name: Package I Can Do It
+
+on:
+    push:
+        branches:
+            - main
+        paths:
+            - "i-can-do-it-deploy-cloud-run/**"
+    workflow_dispatch:
+
+env:
+    REGISTRY: ghcr.io
+    IMAGE_NAME: ${{ github.repository }}
+
+permissions:
+    contents: read
+    packages: write
+
+jobs:
+    package-to-ghcr:
+        name: Package I Can Do It
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Make envfile
+              uses: SpicyPizza/create-envfile@v2.0
+              with:
+                  envkey_FIREBASE_SERVICE_ACCOUNT_KEY: ${{secrets.FIREBASE_SERVICE_ACCOUNT_KEY}}
+                  envkey_NEXT_PUBLIC_FIREBASE_CLIENT_APPID: ${{vars.NEXT_PUBLIC_FIREBASE_CLIENT_APPID}}
+                  envkey_NEXT_PUBLIC_FIREBASE_CLIENT_MESSAGINGSENDERID: ${{vars.NEXT_PUBLIC_FIREBASE_CLIENT_MESSAGINGSENDERID}}
+                  envkey_NEXT_PUBLIC_FIREBASE_CLIENT_STORAGEBUCKET: ${{vars.NEXT_PUBLIC_FIREBASE_CLIENT_STORAGEBUCKET}}
+                  envkey_NEXT_PUBLIC_FIREBASE_CLIENT_PROJECTID: ${{vars.NEXT_PUBLIC_FIREBASE_CLIENT_PROJECTID}}
+                  envkey_NEXT_PUBLIC_FIREBASE_CLIENT_AUTHDOMAIN: ${{vars.NEXT_PUBLIC_FIREBASE_CLIENT_AUTHDOMAIN}}
+                  envkey_NEXT_PUBLIC_FIREBASE_CLIENT_APIKEY: ${{vars.NEXT_PUBLIC_FIREBASE_CLIENT_APIKEY}}
+                  envkey_NEXT_PUBLIC_EMULATOR_FIRESTORE_PORT: ${{vars.NEXT_PUBLIC_EMULATOR_FIRESTORE_PORT}}
+                  envkey_NEXT_PUBLIC_EMULATOR_AUTH_PORT: ${{vars.NEXT_PUBLIC_EMULATOR_AUTH_PORT}}
+                  envkey_NEXT_PUBLIC_EMULATOR_STORAGE_PORT: ${{vars.NEXT_PUBLIC_EMULATOR_STORAGE_PORT}}
+                  fail_on_empty: false
+                  directory: ./i-can-do-it-deploy-cloud-run
+
+            - name: Login to GitHub Container Registry
+              uses: docker/login-action@v3
+              with:
+                  registry: ${{ env.REGISTRY }}
+                  username: ${{ github.actor }}
+                  password: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Extract metadata (tags, labels) for Docker
+              id: meta
+              uses: docker/metadata-action@v5
+              with:
+                  images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-icdi
+
+            - name: Check meta
+              run: |
+                  echo "${{ steps.meta.outputs.tags }}"
+                  echo "${{ steps.meta.outputs.labels }}"
+
+            - name: Build and push Docker image to GitHub Packages
+              uses: docker/build-push-action@v5
+              id: docker_build
+              with:
+                  context: ./i-can-do-it-deploy-cloud-run
+                  push: true
+                  tags: ${{ steps.meta.outputs.tags }}
+                  labels: ${{ steps.meta.outputs.labels }}
+                  target: prod

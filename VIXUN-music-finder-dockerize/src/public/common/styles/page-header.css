@@ -1,0 +1,86 @@
+/* #region PAGE HEADER CONTAINER */
+
+#page-header {
+	display: flex;
+	margin: 1em 0;
+	justify-content: space-evenly;
+}
+
+@media screen and (min-width: 48em) {
+	#page-header {
+		font-size: 1.3rem;
+	}
+}
+
+@media screen and (min-width: 90em) {
+	#page-header {
+		font-size: 2rem;
+	}
+}
+
+/* #endregion PAGE HEADER CONTAINER */
+
+/* #region CONTACTS UPPER  */
+
+#contacts-upper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#contacts-upper,
+#page-header-dummy {
+	font-size: 1em;
+	flex-basis: 10.5em;
+}
+
+#contacts-upper svg {
+	align-items: center;
+	display: flex;
+	font-size: 1em;
+	justify-content: space-between;
+	width: 100%;
+	height: 3em;
+}
+
+@media screen and (max-width: 47.9em) {
+	#page-header div:not(#page-logo) {
+		display: none;
+	}
+}
+
+/* #endregion CONTACTS UPPER */
+
+/* #region PAGE LOGO */
+
+#page-logo {
+	font-size: 1em;
+	position: relative;
+	width: 10em;
+}
+
+h1 {
+	color: #000000;
+	font: 400 1.75em "Mohave", sans-serif;
+	letter-spacing: 0.46em;
+	padding-left: 0.5em;
+	text-align: center;
+}
+
+h1 span {
+	color: var(--primary-bright-red);
+}
+
+#page-logo svg:first-of-type {
+	font-size: 0.8em;
+	left: -4px;
+	bottom: -9px;
+}
+
+#page-logo svg:last-of-type {
+	font-size: 0.7em;
+	right: 7px;
+	top: -13px;
+}
+
+/* #endregion PAGE LOGO */

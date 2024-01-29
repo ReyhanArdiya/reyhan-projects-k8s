@@ -1,0 +1,114 @@
+#form-auth {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	font: 1em "Mohave";
+}
+
+#form-auth h2 {
+	font-weight: 700;
+	font-size: 3em;
+}
+
+#form-auth form {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	row-gap: 0.3em;
+	width: 80%;
+	max-width: 365px;
+}
+
+#form-auth label {
+	font-size: 1.5em;
+	font-weight: 500;
+}
+
+#form-auth input {
+	border: none;
+	outline: none;
+	border-radius: 0.35em;
+	padding: 0.5em;
+	box-shadow: var(--shadow-floating-box-bottom);
+	/* height: ; */
+	width: 100%;
+	margin-bottom: 1em;
+	font: 1em "Quicksand";
+	font-weight: 700;
+}
+
+#form-auth form footer {
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+	max-width: 615px;
+}
+
+#form-auth form footer > * {
+	background: var(--gradient-purple-red);
+	border: none;
+	border-radius: var(--border-radius-rounded);
+	box-shadow: var(--shadow-floating-box-bottom);
+	color: white;
+	font: 700 1.75em "Quicksand";
+	padding: 0.5em;
+	text-align: center;
+}
+
+/* form footer buttons overlay on hover/active */
+#form-auth form footer > * {
+	cursor: pointer;
+	position: relative;
+}
+
+#form-auth form footer > *::before {
+	border-radius: var(--border-radius-rounded);
+	content: "";
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	background-color: black;
+	transition: opacity 0.25s linear;
+}
+
+#form-auth form footer > *:hover::before {
+	opacity: 0.2;
+}
+
+#form-auth form footer > *:active::before {
+	opacity: 0.4;
+	transition: opacity 0.05s linear;
+}
+
+@media screen and (min-width: calc(450em / 16)) {
+	#form-auth form footer {
+		display: flex;
+		width: 100%;
+		justify-content: space-evenly;
+	}
+	#form-auth form footer > * {
+		min-width: 142px;
+	}
+}
+
+@media screen and (min-width: 48em) {
+	#form-auth {
+		margin-top: var(--main-margin-top);
+		font-size: 1.25em;
+	}
+}
+
+@media screen and (min-width: 90em) {
+	#form-auth {
+		font-size: 1.5em;
+	}
+
+	#form-auth form {
+		max-width: 450px;
+	}
+}

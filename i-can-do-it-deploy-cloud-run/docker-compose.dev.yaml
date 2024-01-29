@@ -1,0 +1,25 @@
+version: "3"
+services:
+    firebase:
+        image: goatlab/firebase-emulator:latest
+        ports:
+            - 5000:5000 # Firebase Hosting
+            - 5002:5001 # Cloud Functions
+            - 8080:8080 # Cloud Firestore
+            - 8085:8085 # Cloud Pub/Sub
+            - 9000:9000 # Realtime Database
+            - 4001:3000 # UI
+            - 4000:4000 # UI
+        command: "firebase emulators:start --project test"
+        tty: true
+        restart: unless-stopped
+        container_name: firebase-emulator
+    i-can-do-it-app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        image: i-can-do-it-app
+        container_name: i-can-do-it-app
+        ports:
+            - 3000:3000
+        env_file: .env

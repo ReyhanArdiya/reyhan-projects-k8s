@@ -1,0 +1,252 @@
+#display-comments {
+	--top-bottom-space: 2.15em;
+	--comment-height: 9em;
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 85%;
+	margin: 0 auto;
+	font-size: 1em;
+	position: relative;
+}
+
+#display-comments .title-card {
+	margin-bottom: 0;
+	margin-top: var(--top-bottom-space);
+	font-size: 1.34em;
+}
+
+#comment-login {
+	font: 700 2em "Quicksand";
+	text-align: center;
+	margin: var(--top-bottom-space) 0;
+	cursor: pointer;
+	background: var(--gradient-purple-red);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-moz-background-clip: text;
+	color: transparent;
+}
+
+#form-new-comment {
+	margin: var(--top-bottom-space) 0;
+	font-size: 1em;
+}
+
+.comment {
+	align-items: center;
+	border-radius: var(--border-radius-rounded);
+	box-shadow: var(--shadow-floating-box-bottom);
+	display: flex;
+	flex-direction: column;
+	font: 700 1em "Quicksand";
+	justify-content: flex-start;
+	width: 97%;
+	min-height: var(--comment-height);
+}
+
+.comment-text {
+	background-color: white;
+	overflow-y: auto;
+	border: none;
+	border-radius: inherit;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+	border-bottom: 0.1em solid black;
+	font: inherit;
+	outline: none;
+	width: 100%;
+	resize: none;
+	padding: 0.5em;
+	flex-grow: 0.8;
+	height: 30%;
+}
+
+.comment-text::-webkit-scrollbar {
+	display: none;
+}
+
+/* #region -------------------COMMENT FOOTER-------------------------------- */
+
+.comment-footer {
+	border-radius: inherit;
+	flex-grow: 0.2;
+	display: grid;
+	grid-template-areas: "username button1 button2";
+	grid-template-columns: 3fr minmax(18px, 32px) minmax(18px, 32px);
+	justify-items: center;
+	align-items: center;
+	width: 100%;
+	column-gap: 0.5em;
+	padding-right: 0.5em;
+	background: white;
+}
+
+.comment-username {
+	justify-self: start;
+	padding-left: 1em;
+	font-size: 1em;
+	grid-area: username;
+}
+
+.comment-footer button {
+	align-items: center;
+	border-radius: var(--border-radius-rounded);
+	border: none;
+	display: flex;
+	flex-direction: column;
+	height: 1.9em;
+	justify-content: center;
+	outline: none;
+	padding: 0;
+	width: 1.9em;
+}
+
+/* comment buttons overlay on hover/active */
+.comment-footer button {
+	cursor: pointer;
+	position: relative;
+}
+
+.comment-footer button::before {
+	border-radius: inherit;
+	content: "";
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	background-color: black;
+	transition: opacity 0.25s linear;
+}
+
+.comment-footer button:hover::before {
+	opacity: 0.2;
+}
+
+.comment-footer button:active::before {
+	opacity: 0.4;
+	transition: opacity 0.05s linear;
+}
+
+.comment-footer svg {
+	width: 55%;
+	height: 55%;
+}
+
+.comment-footer path {
+	fill: white;
+}
+
+#form-new-comment .comment-delete,
+.comment-delete button {
+	background: var(--gradient-purple-red);
+	grid-area: button1;
+}
+
+#form-new-comment .comment-confirm,
+.comment-confirm button {
+	background: linear-gradient(90deg, #74ffa6 0%, #beff53 99.99%);
+	grid-area: button2;
+}
+
+/* #endregion ================COMMENT FOOTER================================ */
+
+#display-comments-render {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	font-size: 1em;
+	gap: var(--top-bottom-space);
+	justify-content: flex-start;
+	width: 100%;
+	height: calc((var(--comment-height) + var(--top-bottom-space) * 2) * 1.65);
+	padding: 0.3em 0;
+	overflow-y: auto;
+}
+
+#display-comments-render::-webkit-scrollbar {
+	display: none;
+}
+
+/* #region -------------------COMMENT CIRCLE DECORATIONS--------------------- */
+
+#display-comments svg[class*="circle-decoration"] {
+	z-index: -1;
+}
+
+#display-comments svg[class*="circle-decoration"]:nth-of-type(1) {
+	font-size: 1.25em;
+	left: -4%;
+	top: 23%;
+}
+
+#display-comments svg[class*="circle-decoration"]:nth-of-type(2) {
+	font-size: 2.5em;
+	right: -4%;
+	top: 45%;
+}
+
+#display-comments svg[class*="circle-decoration"]:nth-of-type(3) {
+	font-size: 1em;
+	left: 8%;
+	bottom: 25%;
+}
+
+#display-comments svg[class*="circle-decoration"]:nth-of-type(4) {
+	font-size: 3em;
+	right: -7%;
+	bottom: 0%;
+}
+
+/* #endregion ================COMMENT CIRCLE DECORATIONS===================== */
+
+@media screen and (min-width: 48em) {
+	#display-comments {
+		font-size: 1.25em;
+	}
+
+	#display-comments svg[class*="circle-decoration"]:nth-of-type(1) {
+		font-size: 1.5em;
+	}
+
+	#display-comments svg[class*="circle-decoration"]:nth-of-type(2) {
+		font-size: 2.75em;
+	}
+
+	#display-comments svg[class*="circle-decoration"]:nth-of-type(3) {
+		font-size: 1.25em;
+	}
+
+	#display-comments svg[class*="circle-decoration"]:nth-of-type(4) {
+		font-size: 3.25em;
+	}
+}
+
+@media screen and (min-width: 90em) {
+	#display-comments {
+		font-size: 1.5em;
+	}
+
+	#display-comments {
+		font-size: 1.5em;
+	}
+
+	#display-comments svg[class*="circle-decoration"]:nth-of-type(1) {
+		font-size: 1.75em;
+	}
+
+	#display-comments svg[class*="circle-decoration"]:nth-of-type(2) {
+		font-size: 3em;
+	}
+
+	#display-comments svg[class*="circle-decoration"]:nth-of-type(3) {
+		font-size: 1.5em;
+	}
+
+	#display-comments svg[class*="circle-decoration"]:nth-of-type(4) {
+		font-size: 3.5em;
+	}
+}

@@ -1,0 +1,7 @@
+{
+	"env": {
+		"browser": true,
+		"es2021": true
+	},
+	"globals": { "axios": true, "ProgressBar": true, "Swal": true }
+}
