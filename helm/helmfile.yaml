@@ -3,3 +3,11 @@ releases:
     chart: ./i-can-do-it
     installed: true
     namespace: icdi
+  - name: show-search
+    chart: ./show-search
+    installed: true
+    namespace: show-search
+  - name: main-ingress
+    chart: ./main-ingress
+    installed: false
+    namespace: main-ingress
