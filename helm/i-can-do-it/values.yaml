@@ -42,21 +42,24 @@ securityContext:
   # runAsUser: 1000
 
 service:
-  type: LoadBalancer
-  port: 3000
+  type: ClusterIP
+  port: 3200
 
 ingress:
-  enabled: false
+  enabled: true
   className: ""
   annotations:
-    {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
   hosts:
-    - host: chart-example.local
+    - host: reyhan-k8s-project.local
       paths:
-        - path: /
+        - path: /i-can-do-it
           pathType: ImplementationSpecific
+          backend:
+            service:
+              name: i-can-do-it
+              port:
+                number: 3200
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
@@ -73,15 +76,6 @@ resources:
   requests:
     cpu: 100m
     memory: 128Mi
-
-livenessProbe:
-  httpGet:
-    path: /
-    port: http
-readinessProbe:
-  httpGet:
-    path: /
-    port: http
 
 autoscaling:
   enabled: true
