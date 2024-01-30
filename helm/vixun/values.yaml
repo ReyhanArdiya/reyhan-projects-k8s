@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: ghcr.io/reyhanardiya/reyhan-projects-k8s-vixun
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "main"
 
@@ -46,17 +46,20 @@ service:
   port: 3000
 
 ingress:
-  enabled: false
+  enabled: true
   className: ""
   annotations:
-    {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
   hosts:
-    - host: chart-example.local
+    - host: reyhan-k8s-project.local
       paths:
-        - path: /
+        - path: /vixun
           pathType: ImplementationSpecific
+          backend:
+            service:
+              name: vixun
+              port:
+                number: 3000
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
@@ -69,15 +72,6 @@ resources:
   requests:
     cpu: 100m
     memory: 128Mi
-
-livenessProbe:
-  httpGet:
-    path: /
-    port: http
-readinessProbe:
-  httpGet:
-    path: /
-    port: http
 
 autoscaling:
   enabled: true
@@ -111,7 +105,7 @@ vixunConfig:
 
 vixunSecret:
   data:
-    MONGO_URL: ""
+    MONGO_URL: "bW9uZ29kYjovL3ZpeHVuLW1vbmdvZGI6MjcwMTcK"
     CLOUDINARY_API_KEY: "MzI3NjgxOTU3MjEyOTQ5"
     CLOUDINARY_API_SECRET: "N09SekJMUEpaMGdqVmhMT3RjYTVYZWxCdFhn"
     CLOUDINARY_CLOUD_NAME: "ZGl6ZnFpYTZu"
@@ -127,7 +121,7 @@ vixunMongoSecret:
     MONGO_INITDB_ROOT_PASSWORD: "cGFzcw=="
 
 vixunMongoService:
-  type: LoadBalancer
+  type: ClusterIP
   port: 27017
 
 vixunMongoStatefulSet:
@@ -153,5 +147,5 @@ vixunMongoExpressDeployment:
     tag: "latest"
   resources:
     limits:
-      cpu: 100m
-      memory: 128Mi
+      cpu: 250m
+      memory: 256Mi
