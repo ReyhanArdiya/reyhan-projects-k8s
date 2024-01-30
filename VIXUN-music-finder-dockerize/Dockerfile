@@ -7,4 +7,4 @@ RUN npm install --omit=dev
 
 COPY . .
 
-CMD npm run build:env && npm start
+CMD npm start
