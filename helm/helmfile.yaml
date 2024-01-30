@@ -11,7 +11,3 @@ releases:
     chart: ./vixun
     installed: true
     namespace: vixun
-  - name: main-ingress
-    chart: ./main-ingress
-    installed: false
-    namespace: main-ingress
